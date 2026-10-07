@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Solo Leveling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0605; --panel:#150908; --panel2:#1c0d0b; --border:#3a1418;
+  --blue:#e0263c; --violet:#8f1f2b; --gold:#dba53c; --text:#f1e6e3; --muted:#a3898a; --danger:#ff5c72; --good:#33d17a;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:inherit;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif;min-height:100%;position:relative;animation:pagein .6s ease-out;overflow-x:hidden;}
+@keyframes pagein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;mix-blend-mode:overlay;opacity:.35;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/></svg>");}
+h1,h2,h3{font-family:'Cinzel',serif;}
+.hero{text-align:center;padding:34px 10px 30px;position:relative;z-index:1;}
+.eyebrow{font-size:11px;letter-spacing:3px;color:var(--muted);margin-bottom:14px;}
+.divider{display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto 16px;max-width:280px;}
+.divider i{height:1px;flex:1;background:var(--border);}
+.divider span{width:8px;height:8px;background:var(--violet);transform:rotate(45deg);}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:52px;margin:0;color:var(--blue);letter-spacing:1px;animation:titleglow 3.5s ease-in-out infinite;}
+@keyframes titleglow{0%,100%{text-shadow:0 0 24px rgba(224,38,60,.55),0 0 60px rgba(224,38,60,.25);}50%{text-shadow:0 0 34px rgba(224,38,60,.75),0 0 80px rgba(224,38,60,.4);}}
+.hero p{color:var(--muted);font-size:14px;margin:14px 0 0;}
+.title{font-size:22px;font-weight:700;letter-spacing:.3px;}
+.title span{color:var(--blue);}
+.rankblock{text-align:center;margin-bottom:26px;}
+.rankbig{font-family:'Cinzel Decorative',serif;font-size:56px;letter-spacing:2px;animation:rankbreath 2.8s ease-in-out infinite;}
+@keyframes rankbreath{0%,100%{transform:scale(1);filter:brightness(1);}50%{transform:scale(1.015);filter:brightness(1.15);}}
+.rankbig.srank{background:linear-gradient(90deg,#ffd76a,#ff4d6d,#ffd76a);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 3s linear infinite;filter:drop-shadow(0 0 14px rgba(255,77,109,.6));}
+@keyframes shine{to{background-position:200% center;}}
+.ranktaunt{color:var(--muted);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;}
+.statline{color:var(--muted);font-size:13px;margin-top:12px;}
+.statline b{color:var(--text);}
+.charlevel{display:flex;align-items:center;gap:18px;}
+.charlevel .num{font-size:34px;font-weight:700;color:var(--blue);text-shadow:0 0 18px rgba(77,166,255,.45);}
+.badge{padding:4px 11px;border-radius:20px;border:1px solid var(--border);font-size:12px;color:var(--blue);background:rgba(224,38,60,.08);}
+.streak{color:var(--muted);font-size:14px;}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:0 6px 28px rgba(0,0,0,.35);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;animation:panelin .5s ease-out both;}
+.panel:hover{transform:translateY(-3px);box-shadow:0 10px 34px rgba(0,0,0,.45);border-color:#4a2024;}
+@keyframes panelin{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px;}
+.stat h3{margin:0 0 10px;font-size:15px;font-weight:500;display:flex;align-items:center;justify-content:space-between;}
+.stat .lvl{font-size:28px;font-weight:700;margin-bottom:10px;}
+.bar{height:9px;border-radius:6px;background:#20100f;overflow:hidden;position:relative;}
+.bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--violet),var(--blue));box-shadow:0 0 10px rgba(224,38,60,.5);transition:width .5s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden;}
+.bar i::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);background-size:200% 100%;animation:shimmer 2.6s linear infinite;}
+@keyframes shimmer{from{background-position:200% 0;}to{background-position:-200% 0;}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+.panel h2{font-size:13px;font-weight:600;margin:0 0 16px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:flex;align-items:center;gap:8px;}
+.panel h2 svg{color:var(--blue);flex-shrink:0;filter:drop-shadow(0 0 4px rgba(224,38,60,.5));}
+.stat h3 svg{color:var(--blue);}
+.qrow{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;padding:11px 6px;border-bottom:1px solid var(--border);font-size:14px;border-radius:8px;transition:background .15s,transform .15s;}
+.qrow:hover{transform:translateX(3px);}
+.qrow:hover{background:rgba(224,38,60,.05);}
+.qrow:last-child{border-bottom:none;}
+.qrow label{flex:1;}
+.qrow input[type=checkbox]{width:18px;height:18px;accent-color:var(--blue);cursor:pointer;}
+.qrow .xp{color:var(--muted);font-size:12px;white-space:nowrap;}
+.qrow.done label{color:var(--muted);text-decoration:line-through;}
+.addrow{display:flex;gap:8px;margin-top:14px;}
+.addrow input,.addrow select{background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:9px 10px;font-size:13px;font-family:inherit;outline:none;transition:border-color .15s;}
+.addrow input:focus,.addrow select:focus,textarea:focus{border-color:var(--blue);}
+.addrow input[type=text]{flex:1;min-width:0;}
+.addrow input[type=number]{width:60px;}
+button{background:var(--blue);color:#180405;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 12px rgba(224,38,60,.35);transition:filter .15s,transform .1s;}
+button.ghost{background:transparent;border:1px solid var(--border);color:var(--text);box-shadow:none;}
+button.ghost:hover{border-color:var(--blue);color:var(--blue);}
+button:hover{filter:brightness(1.12);}
+button:active{transform:scale(.97);}
+textarea{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);border-radius:8px;padding:11px;font-family:inherit;font-size:13px;resize:vertical;min-height:56px;outline:none;transition:border-color .15s;}
+.log{max-height:280px;overflow-y:auto;}
+.logrow{padding:9px 4px;border-bottom:1px solid var(--border);font-size:13px;display:flex;gap:12px;}
+.logrow:last-child{border-bottom:none;}
+.logrow .date{color:var(--muted);white-space:nowrap;font-size:11px;padding-top:2px;}
+.logrow.miss{color:var(--danger);}
+.logrow.up{color:var(--good);}
+.logrow.hidden{color:var(--gold);}
+.wl{font-size:13px;color:var(--muted);margin-top:10px;}
+.wl div{padding:8px 2px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;}
+@media(max-width:720px){
+  .stats{grid-template-columns:1fr;}
+  .grid2{grid-template-columns:1fr;}
+  .mgrid{grid-template-columns:1fr;}
+  .hero h1{font-size:38px;}
+  .rankbig{font-size:40px;}
+  .wrap{padding:22px 14px 70px;}
+  .panel{padding:17px;}
+  .statline{flex-wrap:wrap;}
+}
+@media(max-width:420px){
+  .hero h1{font-size:30px;}
+  .rankbig{font-size:32px;}
+  .modal-box{padding:18px;}
+  .addrow input[type=date]{width:100%;}
+  .panel:hover{transform:none;}
+  .qrow:hover{transform:none;}
+}
+.modal-overlay{position:fixed;inset:0;background:rgba(5,2,2,.8);display:flex;align-items:center;justify-content:center;z-index:20;padding:20px;}
+.modal-box{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,.5);animation:modalin .22s cubic-bezier(.2,.8,.2,1);}
+@keyframes modalin{from{opacity:0;transform:scale(.94) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+.reward-toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--panel);border:1px solid var(--blue);border-radius:12px;padding:14px 22px;max-width:min(420px,90vw);width:max-content;text-align:center;font-size:14px;box-shadow:0 4px 30px rgba(224,38,60,.4);z-index:30;animation:toastin .25s ease-out;overflow-wrap:anywhere;}
+@keyframes toastin{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+.qrow.boss{border-left:3px solid var(--gold);padding-left:10px;}
+.qrow.boss label{font-weight:600;}
+.level-flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:40;}
+.level-flash span{font-family:'Cinzel Decorative',serif;font-size:44px;color:var(--blue);text-shadow:0 0 30px rgba(224,38,60,.8);animation:flashpop .9s cubic-bezier(.2,1.4,.4,1);}
+@keyframes flashpop{0%{opacity:0;transform:scale(.7);}20%{opacity:1;transform:scale(1.05);}70%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(1);}}
+.bossflash-text{animation:bossflash 1.8s cubic-bezier(.2,1.4,.4,1);}
+@keyframes bossflash{0%{opacity:0;transform:scale(.6) rotate(-2deg);}15%{opacity:1;transform:scale(1.08) rotate(1deg);}30%{transform:scale(1) rotate(0);}85%{opacity:1;}100%{opacity:0;transform:scale(1.02);}}
+.due{font-size:11px;padding:2px 9px;border-radius:12px;border:1px solid var(--border);color:var(--muted);white-space:nowrap;}
+.due.soon{color:var(--gold);border-color:var(--gold);}
+.due.over{color:var(--danger);border-color:var(--danger);}
+.due.urgent{color:var(--danger);border-color:var(--danger);animation:duepulse 1.6s ease-in-out infinite;}
+#countdown.urgent-warn{color:var(--gold);}
+#countdown.urgent-critical{color:var(--danger);font-weight:700;animation:duepulse 1.4s ease-in-out infinite;}
+@keyframes duepulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+.focusclock{font-family:'Cinzel',serif;font-size:20px;color:var(--blue);margin-left:6px;}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.mbox .k{color:var(--muted);font-size:12px;}
+.mbox .v{font-size:22px;font-weight:600;margin:2px 0;}
+.spark{width:100%;height:64px;margin-top:8px;}
+.sub{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin:16px 0 6px;}
+input[type=date]{color-scheme:dark;}
+.addrow{flex-wrap:wrap;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">THE SYSTEM PRESENTS</div>
+    <h1>SOLO LEVELING</h1>
+    <div class="divider"><i></i><span></span><i></i></div>
+    <p>A personal reckoning. Growth is not given, it is taken, one day at a time.</p>
+  </div>
+
+  <div class="rankblock">
+    <div class="rankbig" id="charRankBig">E-RANK</div>
+    <div class="ranktaunt" id="rankTaunt">Still nothing. Move.</div>
+    <div class="statline">Level <b id="charLevel">1</b> &nbsp;|&nbsp; <span id="streak">0 day streak</span> &nbsp;|&nbsp; <span id="countdown">&mdash;</span></div>
+    <div class="statline" id="dubaiClock" style="margin-top:4px;">&mdash;</div>
+    <div class="bar" style="max-width:320px;margin:10px auto 4px;"><i id="todayFill" style="width:0%"></i></div>
+    <div class="statline" id="todayText" style="margin-top:4px;">0/0 daily quests done today</div>
+  </div>
+
+  <div class="stats" id="statPanels"></div>
+
+  <div class="grid2">
+    <div class="panel">
+      <h2><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h2M4 12h2M4 18h2M9 6h11M9 12h11M9 18h11"/></svg>Daily quests</h2>
+      <div id="dailyList"></div>
+      <div class="addrow">
+        <input type="text" id="dqName" placeholder="Add a daily quest, rare">
+        <button class="ghost" onclick="toggleAdv('dqAdv')" style="font-size:11px;">Options</button>
+        <button onclick="addDaily()">Add</button>
+      </div>
+      <div class="addrow" id="dqAdv" style="display:none;">
+        <select id="dqStat"><option value="body">Body</option><option value="mind">Mind</option><option value="wealth">Wealth</option></select>
+        <input type="number" id="dqXp" placeholder="XP" value="8" style="width:60px">
+      </div>
+      <div class="addrow" style="align-items:center;">
+        <select id="focusMin"><option value="25">25 min</option><option value="45" selected>45 min</option><option value="60">60 min</option><option value="90">90 min</option></select>
+        <button id="focusBtn" class="ghost">Start focus</button>
+        <span class="focusclock" id="focusClock"></span>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 style="display:flex;justify-content:space-between;align-items:center;"><span style="display:flex;align-items:center;gap:8px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v18M5 4h13l-3 4 3 4H5"/></svg>Quest board (weekly &amp; boss)</span><button class="ghost" id="undoBtn" onclick="undoLast()" style="padding:4px 10px;font-size:11px;text-transform:none;letter-spacing:0;">Undo last</button></h2>
+      <div class="statline" id="weekLeftLine" style="margin-bottom:10px;text-align:left;"></div>
+      <div id="questList"></div>
+      <div class="addrow">
+        <input type="text" id="qName" placeholder="Or add one yourself">
+        <button class="ghost" onclick="toggleAdv('qAdv')" style="font-size:11px;">Options</button>
+        <button onclick="addQuest()">Add</button>
+      </div>
+      <div class="addrow" id="qAdv" style="display:none;">
+        <select id="qStat"><option value="body">Body</option><option value="mind">Mind</option><option value="wealth">Wealth</option></select>
+        <input type="number" id="qXp" placeholder="XP" value="20">
+        <input type="date" id="qDue" title="Due date (optional)" style="width:135px">
+        <label style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);white-space:nowrap;"><input type="checkbox" id="qRecurring" style="width:15px;height:15px;">repeats weekly</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:18px;">
+    <h2><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg>Body tracking</h2>
+    <div class="mgrid" id="metricsBox"></div>
+    <div class="addrow">
+      <input type="number" id="mWeight" placeholder="Weight kg" step="0.1" style="width:110px">
+      <input type="number" id="mWaist" placeholder="Waist cm" step="0.1" style="width:110px">
+      <button class="ghost" onclick="logMetrics()">Log today</button>
+    </div>
+    <div class="sub">Progressive overload</div>
+    <div id="liftList"></div>
+    <div class="addrow">
+      <input type="text" id="liftName" placeholder="Exercise">
+      <input type="number" id="liftWeight" placeholder="Weight" style="width:70px">
+      <input type="number" id="liftReps" placeholder="Target reps" style="width:85px">
+      <button class="ghost" onclick="addLift()">Add</button>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:18px;">
+    <h2><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Log an update</h2>
+    <textarea id="updateText" placeholder="Just tell it what happened, it figures out the rest..."></textarea>
+    <div class="addrow" style="margin-top:8px;justify-content:flex-end;">
+      <button onclick="logUpdate()">Send</button>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:16px;">
+    <h2><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M3 12h18M12 8v13M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>Rewards</h2>
+    <div id="rewardsList"></div>
+  </div>
+
+  <div style="text-align:center;">
+    <button class="ghost" onclick="toggleMore()" style="display:inline-flex;align-items:center;gap:7px;"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button>
+  </div>
+
+  <div class="modal-overlay" id="moreModal" style="display:none;" onclick="if(event.target===this)toggleMore()">
+    <div class="modal-box">
+      <h2>More</h2>
+      <div class="qrow" style="cursor:pointer;" onclick="toggleMore();showBriefing()"><label>Daily briefing</label></div>
+      <div class="qrow" style="cursor:pointer;" onclick="toggleMore();toggleLog()"><label>Milestone log</label></div>
+      <div class="qrow" style="cursor:pointer;" onclick="toggleMore();toggleWeekly()"><label>Weekly review</label></div>
+      <div class="qrow" style="cursor:pointer;" onclick="toggleMore();showMissReport()"><label>Why you miss</label></div>
+      <div class="qrow" style="cursor:pointer;" onclick="toggleMore();toggleSettings()"><label>Settings &amp; AI key</label></div>
+      <div class="qrow" style="cursor:pointer;" onclick="toggleMore();toggleBackup()"><label>Backup</label></div>
+      <button class="ghost" style="margin-top:12px;" onclick="toggleMore()">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="logModal" style="display:none;" onclick="if(event.target===this)toggleLog()">
+  <div class="modal-box">
+    <h2>Milestone log</h2>
+    <div class="log" id="logList"></div>
+    <button class="ghost" style="margin-top:12px;" onclick="toggleLog()">Close</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="weeklyModal" style="display:none;" onclick="if(event.target===this)toggleWeekly()">
+  <div class="modal-box">
+    <h2>Weekly review</h2>
+    <div id="weeklyContent"></div>
+    <button class="ghost" style="margin-top:12px;" onclick="toggleWeekly()">Close</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="settingsModal" style="display:none;" onclick="if(event.target===this)toggleSettings()">
+  <div class="modal-box">
+    <h2>Settings</h2>
+    <p style="color:var(--muted);font-size:13px;margin-top:0;">Paste your free Gemini API key here. Saved only on this device's browser storage, never uploaded or written into the file, so it stays yours even if this site is public.</p>
+    <input type="password" id="settingsKey" placeholder="AIza..." style="width:100%;">
+    <div class="addrow">
+      <button class="ghost" onclick="toggleKeyVisible()">Show/hide</button>
+      <button class="ghost" onclick="clearKey()">Clear key</button>
+      <button onclick="saveKeyFromSettings()">Save</button>
+    </div>
+    <button class="ghost" style="margin-top:12px;" onclick="toggleSettings()">Close</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="backupModal" style="display:none;" onclick="if(event.target===this)toggleBackup()">
+  <div class="modal-box">
+    <h2>Backup</h2>
+    <p style="color:var(--muted);font-size:13px;margin-top:0;">Copy this text and save it somewhere safe. Paste it back in and hit restore if you ever need to recover your progress.</p>
+    <textarea id="backupText" style="min-height:140px;"></textarea>
+    <div class="addrow">
+      <button class="ghost" onclick="copyBackup()">Copy</button>
+      <button onclick="restoreBackup()">Restore from this text</button>
+    </div>
+    <button class="ghost" style="margin-top:12px;" onclick="toggleBackup()">Close</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="briefModal" style="display:none;">
+  <div class="modal-box">
+    <h2>Daily briefing</h2>
+    <div id="briefContent"></div>
+    <div class="addrow" style="justify-content:flex-end;"><button onclick="closeBriefing()">Start the day</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="missModal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <h2>Why you miss</h2>
+    <div id="missContent"></div>
+    <button class="ghost" style="margin-top:12px;" onclick="document.getElementById('missModal').style.display='none'">Close</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="askModal" style="display:none;">
+  <div class="modal-box">
+    <h2 id="askTitle">Answer</h2>
+    <p id="askQ" style="color:var(--muted);font-size:14px;margin-top:0;"></p>
+    <textarea id="askInput" style="min-height:48px;"></textarea>
+    <div class="addrow" style="justify-content:flex-end;"><button class="ghost" onclick="deferAsk()">Answer later</button><button onclick="submitAsk()">Submit</button></div>
+  </div>
+</div>
+
+<div id="rewardToast" class="reward-toast" style="display:none;"></div>
+<div id="levelFlash" class="level-flash" style="display:none;"></div>
+
+<script>
+const STATS=['body','mind','wealth'];
+const STAT_LABEL={body:'Body',mind:'Mind',wealth:'Wealth'};
+const STAT_ICON={
+  body:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 7v10M18 7v10M2 10v4M22 10v4M6 12h12"/></svg>',
+  mind:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/></svg>',
+  wealth:'<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12h6M12 9v6"/></svg>'
+};
+const REWARD_IDEAS=[
+  "Take today's workout lighter, active recovery only.",
+  "Pick whatever you watch tonight, no debate.",
+  "Sleep in tomorrow, push the first quest to noon.",
+  "One guilt-free hour of gaming, fully off the clock.",
+  "Order the thing you've been craving, once.",
+  "Skip the deep work block tomorrow, no penalty."
+];
+const DEFAULT_DAILY=[
+  {id:'gym',label:'Gym session',stat:'body',xp:10},
+  {id:'protein',label:'Protein target hit',stat:'body',xp:6},
+  {id:'nosmoke',label:'No smoking, no vaping',stat:'mind',xp:8},
+  {id:'skincare',label:'Skincare routine',stat:'body',xp:4},
+  {id:'vitamin',label:'Multivitamin',stat:'body',xp:3},
+  {id:'minoxidil',label:'Minoxidil applied',stat:'body',xp:3},
+  {id:'deepwork',label:'Deep work block, no procrastinating',stat:'mind',xp:10},
+  {id:'sleep',label:'Slept well',stat:'mind',xp:6}
+];
+
+const TARGET_DATE = '2027-07-16';
+const DUBAI_OFFSET = 4*3600*1000;
+function dNow(){ return new Date(Date.now()+DUBAI_OFFSET); }
+const DEFAULT_QUESTS=[
+  {name:'Send 5 job applications',stat:'wealth',xp:15,target:5},
+  {name:'Progress on side hustle / freelance work',stat:'wealth',xp:15},
+  {name:'Weekly body check-in (photos/measurements)',stat:'body',xp:10},
+  {name:'Hit target physique, visible abs',stat:'body',xp:60,type:'boss'},
+  {name:'Land a high-paying job after MBA',stat:'wealth',xp:80,type:'boss'},
+  {name:'Clear personal loan',stat:'wealth',xp:60,type:'boss'},
+  {name:'Reach savings goal',stat:'wealth',xp:60,type:'boss'},
+  {name:'Hit steady monthly income target',stat:'wealth',xp:60,type:'boss'},
+  {name:'Graduate MBA',stat:'mind',xp:50,type:'boss'}
+];
+const RANK_COLOR={'E-Rank':'#8b8f98','D-Rank':'#4cc38a','C-Rank':'#4da3ff','B-Rank':'#a97bff','A-Rank':'#f5b942','S-Rank':'#ff4d6d'};
+const esc=(t)=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const RANK_TAUNTS={
+  'E-Rank':'Still nothing. Move.',
+  'D-Rank':'Barely started. Keep going.',
+  'C-Rank':'Progress is real now. Do not slow down.',
+  'B-Rank':'You are becoming someone. Prove it stays.',
+  'A-Rank':'Almost there. No excuses now.',
+  'S-Rank':'Apex. Do not you dare stop.'
+};
+const GOALS_CONTEXT = "The user is overweight, wants visible abs and arm/shoulder growth, is finishing an MBA in Feb 2027, wants a high paying job after, wants to build a side hustle, wants to clear a personal loan, hit a savings goal, and reach a steady monthly income target, all by July 16 2027.";
+const FALLBACK_POOL=[
+  {name:'Progress photo update',stat:'body',xp:10},
+  {name:'Add one new set to your arm/shoulder routine',stat:'body',xp:12},
+  {name:'Track meals for the week',stat:'body',xp:14,target:7},
+  {name:'Read for 30 minutes, five days this week',stat:'mind',xp:15,target:5},
+  {name:'One full day off social media',stat:'mind',xp:12},
+  {name:'Plan next week before Sunday night',stat:'mind',xp:10},
+  {name:'Update resume or LinkedIn',stat:'wealth',xp:15},
+  {name:'Reach out to 2 people in your target industry',stat:'wealth',xp:15,target:2},
+  {name:'Research one new freelance/side hustle lead',stat:'wealth',xp:15},
+  {name:'Track spending for the week',stat:'wealth',xp:10}
+];
+
+// The System decides quests on its own. No button, no asking, it just issues them.
+async function autoAssignQuests(){
+  const today = iso();
+  const daysSince = s.lastQuestGen ? dayDiff(today, s.lastQuestGen) : 999;
+  if(daysSince < 7 && s.quests.length >= 3) return;
+  if(s.quests.length >= 10) return;
+
+  let added = [];
+  if(s.apiKey){
+    let history=(s.updateHistory||[]).slice(-8).join(' | ');
+    let raw = await callGemini(`${GOALS_CONTEXT} Recent updates from the user: ${history||'none yet'}. Issue 3 new weekly or boss quests right now, specific and actionable, nothing generic. If a quest naturally repeats across the week (like reading 5 times, or 5 job applications), give it a target count so it can be logged incrementally instead of one all-or-nothing checkbox. Reply with ONLY a compact JSON array, no other text, shape: [{"name":"...","stat":"body|mind|wealth","xp":number,"target":number,"type":"weekly|boss","recurring":boolean}]. Set recurring true only for things that are genuinely a standing weekly obligation, not a one-off. target defaults to 1 for single-action quests. xp 10-30 for weekly quests, 40-80 for boss quests.`);
+    if(raw){ try{ added = JSON.parse(raw.replace(/```json|```/g,'').trim()); }catch(e){} }
+  }
+  if(!added.length){
+    s.usedFallback = s.usedFallback || [];
+    let unused = FALLBACK_POOL.filter(f=>!s.usedFallback.includes(f.name) && !s.quests.some(q=>q.name===f.name));
+    added = unused.slice(0,3);
+    s.usedFallback = s.usedFallback.concat(added.map(a=>a.name));
+  }
+  added = added.slice(0, 10 - s.quests.length);
+  added.forEach(q=> s.quests.push({...q, id:Date.now()+Math.random()}));
+  s.lastQuestGen = today;
+  if(added.length) log('The System has issued new quests.', 'up');
+  save();
+}
+
+// gemini-2.0-flash is shut down and 2.5 is scheduled to go too, so try current models in order.
+const GEMINI_MODELS=['gemini-flash-latest','gemini-3.5-flash','gemini-3.1-flash-lite','gemini-2.5-flash'];
+const FOCUS_GOAL=45;
+const DOW=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const STOP=new Set('i the a an and or but to of it in on at is was am be so my me just too very not no for with that this had have got did do because cause really again then when what'.split(' '));
+let pendingReasons=[], askResolve=null, askRequired=false;
+let s = load();
+rollover();
+checkOverdue();
+checkWeek();
+render();
+autoAssignQuests().then(render);
+maybeBriefing();
+setInterval(()=>{ tickFocus(); const c=document.getElementById('dubaiClock'); if(c) c.textContent=dubaiClockText(); },1000);
+
+// Set your Gemini key from the browser console: setKey("your-key-here")
+window.setKey = function(k){ s.apiKey = k.trim(); save(); console.log('Key saved.'); };
+function toggleAdv(id){
+  const el=document.getElementById(id);
+  el.style.display = el.style.display==='none' ? 'flex' : 'none';
+}
+function toggleMore(){
+  const m=document.getElementById('moreModal');
+  m.style.display = m.style.display==='none' ? 'flex' : 'none';
+}
+function toggleSettings(){
+  const m=document.getElementById('settingsModal');
+  if(m.style.display==='none'){ document.getElementById('settingsKey').value = s.apiKey||''; m.style.display='flex'; }
+  else m.style.display='none';
+}
+function toggleKeyVisible(){ const i=document.getElementById('settingsKey'); i.type = i.type==='password'?'text':'password'; }
+function saveKeyFromSettings(){
+  s.apiKey = document.getElementById('settingsKey').value.trim();
+  save();
+  showToast(s.apiKey ? 'Key saved on this device.' : 'No key entered.');
+  if(s.apiKey) toggleSettings();
+}
+function clearKey(){
+  s.apiKey=''; document.getElementById('settingsKey').value='';
+  save(); showToast('Key cleared from this device.');
+}
+window.setModel = function(m){ s.model = m.trim(); save(); console.log('Model set.'); };
+async function callGemini(promptText){
+  if(!s.apiKey) return null;
+  const models = s.model ? [s.model] : (s.workingModel ? [s.workingModel].concat(GEMINI_MODELS.filter(x=>x!==s.workingModel)) : GEMINI_MODELS);
+  for(const m of models){
+    try{
+      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${s.apiKey}`,{
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({contents:[{parts:[{text:promptText}]}]})
+      });
+      const data = await res.json();
+      const text = data.candidates && data.candidates[0].content.parts.map(p=>p.text||'').join('');
+      if(text){ if(s.workingModel!==m){ s.workingModel=m; save(); } return text; }
+      console.warn('Gemini model', m, 'returned no text:', data.error||data);
+    }catch(e){
+      console.warn('Gemini call failed for', m, e);
+    }
+  }
+  return null;
+}
+
+function load(){
+  let raw = localStorage.getItem('sololeveling');
+  if(raw){
+    let data = JSON.parse(raw);
+    const allDefs = DEFAULT_QUESTS.concat(FALLBACK_POOL);
+    (data.quests||[]).forEach(q=>{
+      if(q.target===undefined){
+        let match = allDefs.find(d=>d.name===q.name);
+        q.target = match && match.target ? match.target : 1;
+        q.progress = q.progress||0;
+      }
+    });
+    const legacy=v=>{ if(v && !/^\d{4}-\d{2}-\d{2}$/.test(v)){ try{ return iso(new Date(v)); }catch(e){ return iso(); } } return v; };
+    data.lastDate = legacy(data.lastDate);
+    data.weekStart = legacy(data.weekStart);
+    data.lastBriefing = legacy(data.lastBriefing);
+    data.lastQuestGen = legacy(data.lastQuestGen);
+    if(data.focusToday && data.focusToday.date) data.focusToday.date = legacy(data.focusToday.date);
+    return data;
+  }
+  return {
+    stats:{body:{xp:0,level:1},mind:{xp:0,level:1},wealth:{xp:0,level:1}},
+    daily:DEFAULT_DAILY.map(q=>({...q,done:false})),
+    quests:DEFAULT_QUESTS.map((q,i)=>({...q,id:Date.now()+i})),
+    log:[], streak:0, lastDate:null, hiddenAwarded:[], lastQuestGen:iso()
+  };
+}
+function save(){ localStorage.setItem('sololeveling', JSON.stringify(s)); }
+
+function rankFor(level){
+  if(level<=15) return 'E-Rank';
+  if(level<=30) return 'D-Rank';
+  if(level<=50) return 'C-Rank';
+  if(level<=70) return 'B-Rank';
+  if(level<=90) return 'A-Rank';
+  return 'S-Rank';
+}
+async function suggestReward(context){
+  let raw = await callGemini(`The user just did this in their personal accountability system: "${context}". Suggest ONE short, specific, non-monetary reward or permission for them to enjoy right now. Playful but fitting the achievement, one sentence, no preamble, no quotes.`);
+  return raw ? raw.trim() : REWARD_IDEAS[Math.floor(Math.random()*REWARD_IDEAS.length)];
+}
+function giveReward(context){
+  suggestReward(context).then(idea=>{
+    log(`Reward: ${idea}`, 'up');
+    showToast('Reward: ' + idea);
+    s.rewards = s.rewards || [];
+    s.rewards.unshift({id:Date.now()+Math.random(), text:idea, claimed:false});
+    save(); render();
+  });
+}
+function toggleRewardClaimed(id){
+  let r = (s.rewards||[]).find(x=>x.id==id);
+  if(r) r.claimed = !r.claimed;
+  save(); render();
+}
+let toastTimer;
+function showToast(text){
+  const t = document.getElementById('rewardToast');
+  t.textContent = text;
+  t.style.display = 'block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ t.style.display='none'; }, 6000);
+}
+function toggleLog(){
+  const m = document.getElementById('logModal');
+  m.style.display = m.style.display==='none' ? 'flex' : 'none';
+}
+function addXP(stat, amount){
+  let st = s.stats[stat];
+  let prevRank = rankFor(st.level);
+  let prevLevel = st.level;
+  st.xp += amount;
+  while(st.xp>=100 && st.level<100){ st.xp-=100; st.level++; }
+  while(st.xp<0 && st.level>1){ st.level--; st.xp+=100; }
+  if(st.xp<0) st.xp=0;
+  if(st.level>=100 && st.xp>100) st.xp=100;
+  s.weekStats = s.weekStats || {body:{gained:0,missed:0},mind:{gained:0,missed:0},wealth:{gained:0,missed:0}};
+  if(amount>0) s.weekStats[stat].gained += amount; else if(amount<0) s.weekStats[stat].missed++;
+  if(st.level>prevLevel && amount>0) flashLevelUp(stat, st.level);
+  let newRank = rankFor(st.level);
+  if(newRank!==prevRank && amount>0){
+    log(`${STAT_LABEL[stat]} ranked up to ${newRank}.`, 'up');
+    giveReward(`${STAT_LABEL[stat]} just ranked up to ${newRank}`);
+  }
+}
+function flashLevelUp(stat, level){
+  const el=document.getElementById('levelFlash');
+  el.innerHTML = `<span>${STAT_LABEL[stat].toUpperCase()} &middot; LEVEL ${level}</span>`;
+  el.className = 'level-flash';
+  el.style.display='flex';
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>{ el.style.display='none'; }, 900);
+}
+function flashBossDefeat(name){
+  const el=document.getElementById('levelFlash');
+  el.innerHTML = `<div class="bossflash-text" style="text-align:center;"><div style="font-family:'Cinzel Decorative',serif;font-size:36px;color:var(--gold);text-shadow:0 0 26px rgba(219,165,60,.7);letter-spacing:3px;">BOSS DEFEATED</div><div style="font-family:'Cinzel',serif;font-size:18px;color:var(--text);margin-top:10px;">${esc(name)}</div></div>`;
+  el.className = 'level-flash boss';
+  el.style.display='flex';
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>{ el.style.display='none'; }, 1800);
+}
+function addLift(){
+  let name=document.getElementById('liftName').value.trim();
+  let weight=parseFloat(document.getElementById('liftWeight').value)||0;
+  let reps=parseInt(document.getElementById('liftReps').value)||8;
+  if(!name) return;
+  s.lifts = s.lifts||[];
+  s.lifts.push({id:Date.now(), name, weight, targetReps:reps, hitStreak:0, missStreak:0});
+  document.getElementById('liftName').value='';
+  document.getElementById('liftWeight').value='';
+  document.getElementById('liftReps').value='';
+  save(); render();
+}
+async function logLift(id){
+  let l=(s.lifts||[]).find(x=>x.id==id);
+  let ans=await askText('Log session', `Reps achieved on ${l.name} at ${l.weight}?`, true);
+  let reps=parseInt(ans)||0;
+  if(reps>=l.targetReps){
+    l.hitStreak++; l.missStreak=0;
+    if(l.hitStreak>=2){
+      l.weight = Math.round(l.weight*1.05*2)/2;
+      l.hitStreak=0;
+      log(`${l.name} weight increased to ${l.weight}, two strong sessions in a row.`, 'up');
+    }
+  } else {
+    l.missStreak++; l.hitStreak=0;
+    if(l.missStreak>=2){ log(`${l.name} held at ${l.weight}, two missed sessions in a row.`, 'miss'); l.missStreak=0; }
+  }
+  addXP('body', 5);
+  save(); render();
+}
+function checkWeek(){
+  s.weekStats = s.weekStats || {body:{gained:0,missed:0},mind:{gained:0,missed:0},wealth:{gained:0,missed:0}};
+  const curMonday = mondayOf(iso());
+  if(!s.weekStart) s.weekStart = curMonday;
+  if(s.weekStart !== curMonday){
+    s.lastWeek = s.weekStats;
+    s.weekStats = {body:{gained:0,missed:0},mind:{gained:0,missed:0},wealth:{gained:0,missed:0}};
+    s.weekStart = curMonday;
+    let revived=0;
+    s.quests.forEach(q=>{ if(q.recurring && q.completedCycle){ q.completedCycle=false; q.progress=0; revived++; } });
+    if(revived) log(`${revived} recurring quest${revived>1?'s':''} reset for the new week.`, 'up');
+    log('New week. The System resets the count, not the standard.', 'up');
+  }
+  save();
+}
+function toggleWeekly(){
+  const m=document.getElementById('weeklyModal');
+  if(m.style.display==='none'){
+    document.getElementById('weeklyContent').innerHTML = STATS.map(st=>{
+      let cur=s.weekStats[st], last=s.lastWeek?s.lastWeek[st]:null;
+      return `<div class="qrow"><label>${STAT_LABEL[st]}</label><span class="xp">+${cur.gained} XP this week, ${cur.missed} missed${last?(' &nbsp;|&nbsp; last week +'+last.gained+' XP'):''}</span></div>`;
+    }).join('');
+    m.style.display='flex';
+  } else m.style.display='none';
+}
+function toggleBackup(){
+  const m=document.getElementById('backupModal');
+  if(m.style.display==='none'){
+    document.getElementById('backupText').value = JSON.stringify(s);
+    m.style.display='flex';
+  } else m.style.display='none';
+}
+function copyBackup(){
+  const t=document.getElementById('backupText');
+  t.select();
+  try{ document.execCommand('copy'); showToast('Copied. Save it somewhere safe.'); }
+  catch(e){ showToast('Select the text and copy it manually.'); }
+}
+function restoreBackup(){
+  try{
+    s = JSON.parse(document.getElementById('backupText').value);
+    save(); render(); toggleBackup();
+    showToast('Restored.');
+  }catch(e){ showToast('That is not valid backup text.'); }
+}
+function charLevel(){
+  return Math.round((s.stats.body.level+s.stats.mind.level+s.stats.wealth.level)/3);
+}
+function log(text, cls){
+  const entry={date:new Date().toLocaleDateString(), text, cls:cls||''};
+  s.log.unshift(entry);
+  if(s.log.length>200) s.log.pop();
+  return entry;
+}
+
+function iso(d){ d=d||dNow(); return d.getUTCFullYear()+'-'+String(d.getUTCMonth()+1).padStart(2,'0')+'-'+String(d.getUTCDate()).padStart(2,'0'); }
+function isoOffset(days){ const d=dNow(); d.setUTCDate(d.getUTCDate()+days); return iso(d); }
+function dayDiff(a,b){ return Math.round((new Date(a+'T00:00:00Z')-new Date(b+'T00:00:00Z'))/86400000); }
+function dowOf(isoStr){ return new Date(isoStr+'T00:00:00Z').getUTCDay(); }
+function isoAdd(isoStr,n){ const d=new Date(isoStr+'T00:00:00Z'); d.setUTCDate(d.getUTCDate()+n); return iso(d); }
+function mondayOf(isoStr){ const dow=dowOf(isoStr); const back = dow===0?6:dow-1; return isoAdd(isoStr,-back); }
+function dubaiClockText(){ const n=dNow(); const wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][n.getUTCDay()]; return `${wd} ${iso(n)} \u00b7 ${String(n.getUTCHours()).padStart(2,'0')}:${String(n.getUTCMinutes()).padStart(2,'0')} Dubai time`; }
+function qxp(q){ return Math.round(q.xp*(q.overdueCharged?0.5:1)); }
+function addMiss(m){ s.misses=s.misses||[]; s.misses.push(m); if(s.misses.length>600) s.misses.shift(); return m; }
+function rollover(){
+  const today = iso();
+  if(s.lastDate === today) return;
+  if(s.lastDate){
+    const gap = dayDiff(today, s.lastDate);
+    const lastD = s.lastDate;
+    const total=s.daily.length, doneCount=s.daily.filter(q=>q.done||q.dismissedToday).length;
+    let missedAny=false;
+    s.daily.forEach(q=>{
+      if(!q.done && !q.dismissedToday){
+        missedAny=true;
+        addXP(q.stat, -Math.round(q.xp*1.5));
+        const entry = log(`Missed: ${q.label} \u2014 no reason given`, 'miss');
+        const miss = addMiss({date:lastD, dow:dowOf(lastD), quest:q.label, stat:q.stat, kind:'daily', reason:''});
+        pendingReasons.push({entry, label:q.label, miss});
+      }
+    });
+    const skipped = gap-1;
+    if(skipped>0){
+      s.daily.forEach(q=> addXP(q.stat, -Math.round(q.xp*1.5)*skipped));
+      log(`Missed ${skipped} full day${skipped>1?'s':''}: the app was never opened, so every daily quest counted as failed.`, 'miss');
+      for(let k=1;k<=skipped;k++){
+        const dd=isoAdd(s.lastDate,k);
+        s.daily.forEach(q=>addMiss({date:dd, dow:dowOf(dd), quest:q.label, stat:q.stat, kind:'absent', reason:'app not opened'}));
+      }
+      missedAny=true;
+    }
+    s.lastResult={date:lastD, done:doneCount, total, absentDays:Math.max(0,skipped)};
+    if(missedAny) s.streak = 0; else { s.streak++; checkHidden(); }
+  }
+  s.daily.forEach(q=>{ q.done=false; q.dismissedToday=false; delete q.dismissReason; });
+  s.lastDate = today;
+  save();
+}
+function checkOverdue(){
+  const today=iso();
+  s.quests.forEach(q=>{
+    if(q.due && q.due<today && !q.overdueCharged){
+      q.overdueCharged=true;
+      addXP(q.stat, -Math.round(q.xp*1.5));
+      const entry=log(`Overdue: ${q.name} \u2014 no reason given`, 'miss');
+      const miss=addMiss({date:q.due, dow:dowOf(q.due), quest:q.name, stat:q.stat, kind:'deadline', reason:''});
+      pendingReasons.push({entry, label:q.name, miss, prefix:'Overdue'});
+    }
+  });
+  save();
+}
+function askText(title, question, required){
+  return new Promise(res=>{
+    askResolve=res; askRequired=!!required;
+    document.getElementById('askTitle').textContent=title;
+    document.getElementById('askQ').textContent=question;
+    const i=document.getElementById('askInput'); i.value='';
+    document.getElementById('askModal').style.display='flex';
+    setTimeout(()=>i.focus(),0);
+  });
+}
+function deferAsk(){
+  document.getElementById('askModal').style.display='none';
+  if(askResolve){ const r=askResolve; askResolve=null; r(null); }
+}
+function submitAsk(){
+  const v=document.getElementById('askInput').value.trim();
+  if(askRequired && !v){ showToast('You have to answer this one.'); return; }
+  document.getElementById('askModal').style.display='none';
+  if(askResolve){ const r=askResolve; askResolve=null; r(v); }
+}
+async function askReasons(){
+  while(pendingReasons.length){
+    const p=pendingReasons.shift();
+    const verb = p.prefix==='Overdue' ? 'blew the deadline on' : 'missed';
+    const r=await askText('You failed a quest', `You ${verb} "${p.label}". Why? Be honest, this is logged permanently.`, true);
+    if(r===null){
+      p.entry.text=`${p.prefix||'Missed'}: ${p.label} \u2014 not explained yet`;
+      if(p.miss) p.miss.reason='(deferred)';
+    } else {
+      p.entry.text=`${p.prefix||'Missed'}: ${p.label} \u2014 ${r}`;
+      if(p.miss) p.miss.reason=r;
+    }
+    save(); render();
+  }
+}
+document.getElementById('askInput').addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); submitAsk(); }});
+function checkHidden(){
+  const marks=[3,7,14,30];
+  marks.forEach(m=>{
+    if(s.streak===m && !s.hiddenAwarded.includes(m)){
+      s.hiddenAwarded.push(m);
+      STATS.forEach(st=>addXP(st,15));
+      log(`Hidden quest unlocked: ${m}-day perfect streak. Bonus XP awarded across all stats.`, 'hidden');
+    }
+  });
+}
+
+function toggleDaily(id){
+  let q = s.daily.find(x=>x.id===id);
+  if(q.id==='deepwork' && !q.done && focusMinutes()<FOCUS_GOAL){ showToast(`Deep work only counts through the focus timer. ${focusMinutes()}/${FOCUS_GOAL} min so far.`); render(); return; }
+  q.done = !q.done;
+  addXP(q.stat, q.done ? q.xp : -q.xp);
+  const today = new Date().toDateString();
+  if(s.daily.every(d=>d.done) && s.perfectDayDate!==today){
+    s.perfectDayDate = today;
+    giveReward('completed every single daily quest today');
+  }
+  save(); render();
+}
+function addDaily(){
+  let name=document.getElementById('dqName').value.trim();
+  let stat=document.getElementById('dqStat').value;
+  let xp=parseInt(document.getElementById('dqXp').value)||8;
+  if(!name) return;
+  s.daily.push({id:'custom'+Date.now()+Math.floor(Math.random()*1000), label:name, stat, xp, done:false, custom:true});
+  document.getElementById('dqName').value=''; document.getElementById('dqXp').value=8;
+  save(); render();
+}
+async function dismissDaily(id){
+  let q=s.daily.find(x=>x.id===id);
+  if(!q || q.done || q.dismissedToday) return;
+  const reason=await askText('Excuse this quest', `Why are you skipping "${q.label}" today? (e.g. rest day)`, true);
+  if(reason===null){ showToast('Dismiss cancelled.'); return; }
+  snapshotForUndo();
+  q.dismissedToday=true; q.dismissReason=reason;
+  log(`Excused: ${q.label} \u2014 ${reason}`, 'up');
+  save(); render();
+}
+function removeDaily(id){
+  s.daily = s.daily.filter(q=>q.id!==id);
+  save(); render();
+}
+function addQuest(){
+  let name=document.getElementById('qName').value.trim();
+  let stat=document.getElementById('qStat').value;
+  let xp=parseInt(document.getElementById('qXp').value)||10;
+  if(!name) return;
+  const due=document.getElementById('qDue').value;
+  const recurring=document.getElementById('qRecurring').checked;
+  const nq={id:Date.now(), name, stat, xp}; if(due) nq.due=due; if(recurring) nq.recurring=true;
+  s.quests.push(nq);
+  document.getElementById('qName').value=''; document.getElementById('qDue').value=''; document.getElementById('qRecurring').checked=false;
+  save(); render();
+}
+function isBossQuest(q){ return q.type==='boss' || /^BOSS:/i.test(q.name); }
+function snapshotForUndo(){
+  s.undo = JSON.parse(JSON.stringify({quests:s.quests, daily:s.daily, stats:s.stats, weekStats:s.weekStats||{}, rewards:s.rewards||[], log:s.log||[]}));
+}
+function undoLast(){
+  if(!s.undo){ showToast('Nothing to undo.'); return; }
+  s.quests=s.undo.quests; s.daily=s.undo.daily; s.stats=s.undo.stats; s.weekStats=s.undo.weekStats; s.rewards=s.undo.rewards; s.log=s.undo.log;
+  s.undo=null;
+  showToast('Undone.');
+  save(); render();
+}
+function completeQuest(id){
+  snapshotForUndo();
+  let q = s.quests.find(x=>x.id===id);
+  const gain=qxp(q);
+  addXP(q.stat, gain);
+  log(`Quest complete: ${q.name} (+${gain} ${STAT_LABEL[q.stat]} XP${q.overdueCharged?', half XP, it was late':''})`, 'up');
+  if(isBossQuest(q)) flashBossDefeat(q.name.replace(/^BOSS:\s*/i,''));
+  if(q.recurring){ q.completedCycle=true; }
+  else{ s.quests = s.quests.filter(x=>x.id!==id); }
+  giveReward(`completed quest: ${q.name}`);
+  save(); render();
+}
+function incrementQuest(id){
+  snapshotForUndo();
+  let q = s.quests.find(x=>x.id===id);
+  q.progress = (q.progress||0)+1;
+  let step = Math.round(qxp(q)/q.target);
+  addXP(q.stat, step);
+  if(q.progress>=q.target){
+    log(`Quest complete: ${q.name}`, 'up');
+    if(isBossQuest(q)) flashBossDefeat(q.name.replace(/^BOSS:\s*/i,''));
+    if(q.recurring){ q.completedCycle=true; }
+    else{ s.quests = s.quests.filter(x=>x.id!==id); }
+    giveReward(`completed quest: ${q.name}`);
+  }else{
+    log(`${q.name}: ${q.progress}/${q.target} logged (+${step} ${STAT_LABEL[q.stat]} XP)`, 'up');
+  }
+  save(); render();
+}
+async function logUpdate(){
+  let text=document.getElementById('updateText').value.trim();
+  if(!text) return;
+  document.getElementById('updateText').value='';
+  snapshotForUndo();
+
+  if(!s.apiKey){
+    addXP('mind', 5);
+    log(`${text} (+5 Mind XP, connect AI for smarter handling)`, 'up');
+    showToast('Logged. Connect your Gemini key to let this actually manage quests and judge XP properly.');
+    s.updateHistory = (s.updateHistory||[]).concat(text).slice(-20);
+    save(); render();
+    return;
+  }
+
+  let history=(s.updateHistory||[]).slice(-8).join(' | ');
+  let currentQuests=s.quests.map(q=>({name:q.name,stat:q.stat,xp:q.xp,target:q.target||1,due:q.due||null}));
+  let raw = await callGemini(`${GOALS_CONTEXT} Today is ${iso()}. Current active quests on the board: ${JSON.stringify(currentQuests)}. Recent updates from the user: ${history||'none yet'}. The user just said: "${text}".
+Decide what they want. Two possible cases:
+1) They're reporting something they did, an achievement or milestone. Reply with ONLY this compact JSON: {"action":"log","stat":"body|mind|wealth","xp":number,"summary":"short one line"}. xp between 5 and 40 based on significance.
+2) They're asking you to manage their quest board, add new quests, remove or deprioritize existing ones, or reshuffle for new priorities. Reply with ONLY this compact JSON: {"action":"manage","add":[{"name":"...","stat":"body|mind|wealth","xp":number,"target":number,"due":"YYYY-MM-DD or null"}],"remove":["exact existing quest name to drop",...],"note":"one short line explaining what changed and why"}. Never remove a quest just to hide missed progress, only to reprioritize.
+Reply with ONLY the JSON for whichever case fits, nothing else.`);
+
+  s.updateHistory = (s.updateHistory||[]).concat(text).slice(-20);
+
+  if(raw){
+    try{
+      let parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
+      if(parsed.action==='manage'){
+        (parsed.remove||[]).forEach(name=>{ s.quests = s.quests.filter(q=>q.name!==name); });
+        (parsed.add||[]).forEach(q=>{ if(!q.due || !/^\d{4}-\d{2}-\d{2}$/.test(q.due)) delete q.due; s.quests.push({...q, id:Date.now()+Math.random()}); });
+        log(`Quest board updated: ${parsed.note||text}`, 'up');
+        showToast(parsed.note || 'Quest board updated.');
+      } else {
+        addXP(parsed.stat, parsed.xp);
+        log(`${parsed.summary} (+${parsed.xp} ${STAT_LABEL[parsed.stat]} XP)`, 'up');
+        giveReward(parsed.summary);
+      }
+    }catch(e){
+      log(`${text} (couldn't parse a response, logged as-is)`, 'up');
+      showToast("Logged, but couldn't parse the AI's response.");
+    }
+  } else {
+    log(`${text} (AI call failed, logged as-is)`, 'up');
+    showToast('AI call failed, likely blocked in this preview. Logged as-is.');
+  }
+  save(); render();
+}
+
+function dueChip(q){
+  if(!q.due) return '';
+  const d=dayDiff(q.due, iso());
+  if(d<0) return `<span class="due over">OVERDUE ${-d}d</span>`;
+  if(d===0){
+    const n=dNow();
+    const endOfDay=new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate(),23,59,59));
+    const hrs=Math.max(0,Math.ceil((endOfDay-n)/3600000));
+    return `<span class="due urgent">${hrs}h left today</span>`;
+  }
+  if(d===1) return '<span class="due soon">due tomorrow</span>';
+  return `<span class="due ${d<=2?'soon':''}">due in ${d}d</span>`;
+}
+function focusMinutes(){ return s.focusToday && s.focusToday.date===iso() ? s.focusToday.minutes : 0; }
+function startFocus(){
+  if(s.focus) return;
+  const m=parseInt(document.getElementById('focusMin').value)||25;
+  s.focus={endsAt:Date.now()+m*60000, minutes:m};
+  save(); updateFocusUI();
+}
+function cancelFocus(){ s.focus=null; save(); updateFocusUI(); showToast('Session cancelled. Nothing counted.'); }
+function tickFocus(){
+  if(s.focus && Date.now()>=s.focus.endsAt){
+    const m=s.focus.minutes;
+    s.focus=null;
+    if(!s.focusToday || s.focusToday.date!==iso()) s.focusToday={date:iso(), minutes:0};
+    s.focusToday.minutes+=m;
+    log(`Focus session complete: ${m} min (${s.focusToday.minutes} today)`, 'up');
+    showToast(`Focus session done. ${s.focusToday.minutes}/${FOCUS_GOAL} min today.`);
+    const q=s.daily.find(x=>x.id==='deepwork');
+    if(q && !q.done && s.focusToday.minutes>=FOCUS_GOAL) toggleDaily('deepwork');
+    save(); render();
+  }
+  updateFocusUI();
+}
+function updateFocusUI(){
+  const clock=document.getElementById('focusClock'), btn=document.getElementById('focusBtn'), sel=document.getElementById('focusMin');
+  if(!clock) return;
+  if(s.focus){
+    const left=Math.max(0,Math.ceil((s.focus.endsAt-Date.now())/1000));
+    clock.textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');
+    btn.textContent='Cancel'; btn.onclick=cancelFocus; sel.disabled=true;
+  } else {
+    clock.textContent=focusMinutes()+' min today';
+    btn.textContent='Start focus'; btn.onclick=startFocus; sel.disabled=false;
+  }
+}
+function logMetrics(){
+  const w=parseFloat(document.getElementById('mWeight').value), c=parseFloat(document.getElementById('mWaist').value);
+  if(!(w>0) && !(c>0)){ showToast('Enter a weight or a waist measurement.'); return; }
+  s.metrics=s.metrics||[];
+  const d=iso(); let e=s.metrics.find(x=>x.date===d); const isNew=!e;
+  if(!e){ e={date:d}; s.metrics.push(e); }
+  if(w>0) e.weight=w;
+  if(c>0) e.waist=c;
+  s.metrics.sort((a,b)=>a.date<b.date?-1:1);
+  if(isNew){ addXP('body',3); log(`Weigh-in logged${w>0?' '+w+' kg':''}${c>0?', waist '+c+' cm':''} (+3 Body XP)`,'up'); }
+  document.getElementById('mWeight').value=''; document.getElementById('mWaist').value='';
+  save(); render();
+}
+function spark(pts,color){
+  if(pts.length<2) return '<div class="k" style="padding:14px 0;">Need 2+ entries to draw a trend.</div>';
+  const W=260,H=64,P=6, xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
+  const sx=v=>P+(x1===x0?0:(v-x0)/(x1-x0))*(W-2*P), sy=v=>H-P-(y1===y0?0.5:(v-y0)/(y1-y0))*(H-2*P);
+  const line=pts.map(p=>sx(p.x).toFixed(1)+','+sy(p.y).toFixed(1)).join(' ');
+  const n=pts.length, mx=xs.reduce((a,b)=>a+b)/n, my=ys.reduce((a,b)=>a+b)/n;
+  let num=0,den=0; pts.forEach(p=>{ num+=(p.x-mx)*(p.y-my); den+=(p.x-mx)*(p.x-mx); });
+  const m=den?num/den:0, b=my-m*mx, ty=v=>sy(m*v+b);
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><polyline points="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"/><line x1="${sx(x0).toFixed(1)}" y1="${ty(x0).toFixed(1)}" x2="${sx(x1).toFixed(1)}" y2="${ty(x1).toFixed(1)}" stroke="${color}" stroke-width="1.5" stroke-dasharray="4 4" opacity=".6"/><circle cx="${sx(pts[n-1].x).toFixed(1)}" cy="${sy(pts[n-1].y).toFixed(1)}" r="3" fill="${color}"/></svg>`;
+}
+function metricBox(label,unit,key,color){
+  const arr=(s.metrics||[]).filter(e=>e[key]>0);
+  if(!arr.length) return `<div class="mbox"><div class="k">${label}</div><div class="v" style="color:var(--muted)">no data</div></div>`;
+  const first=arr[0], last=arr[arr.length-1], d=last[key]-first[key];
+  const t0=new Date(first.date+'T00:00:00Z').getTime();
+  const pts=arr.slice(-30).map(e=>({x:Math.round((new Date(e.date+'T00:00:00Z').getTime()-t0)/86400000), y:e[key]}));
+  const delta = arr.length>1 ? `${d>0?'+':''}${d.toFixed(1)} ${unit} since ${first.date}` : 'first entry';
+  return `<div class="mbox"><div class="k">${label}</div><div class="v">${last[key]} ${unit}</div><div class="k">${delta}</div>${spark(pts,color)}</div>`;
+}
+function renderMetrics(){ document.getElementById('metricsBox').innerHTML = metricBox('Weight','kg','weight','#e0263c')+metricBox('Waist','cm','waist','#dba53c'); }
+function briefingHTML(){
+  const today=iso(), daysLeft=dayDiff(TARGET_DATE, today), cRank=rankFor(charLevel());
+  let y='Day one. Nothing to judge yet. Start clean.';
+  const r=s.lastResult;
+  if(r) y=`Yesterday (${r.date}): ${r.done}/${r.total} daily quests done.`+(r.absentDays?` Plus ${r.absentDays} day(s) you never showed up.`:'')+((r.done===r.total&&!r.absentDays)?' Clean sheet.':' The gap is the problem.');
+  const top=s.quests.slice().sort((a,b)=>{ const da=a.due?dayDiff(a.due,today):9999, db=b.due?dayDiff(b.due,today):9999; return da-db || b.xp-a.xp; }).slice(0,3);
+  const pri=top.length ? top.map(q=>`<div class="qrow"><label>${esc(q.name.replace(/^BOSS:\s*/i,''))}</label>${dueChip(q)}<span class="xp">${STAT_LABEL[q.stat]} +${q.xp}</span></div>`).join('') : '<div class="qrow" style="border:none;color:var(--muted);">Nothing on the board.</div>';
+  return `<p style="margin-top:0;color:var(--muted);">${RANK_TAUNTS[cRank]}</p>
+    <div class="qrow"><label>${daysLeft>0?daysLeft+' days left until July 16, 2027':'Deadline reached'}</label><span class="xp">Level ${charLevel()} &middot; ${cRank}</span></div>
+    <div class="qrow"><label>${y}</label></div>
+    <div class="qrow"><label>Streak</label><span class="xp">${s.streak} days</span></div>
+    <div class="sub">Top priorities</div>${pri}
+    <p style="color:var(--muted);font-size:13px;">Plus ${s.daily.length} daily quests. All of them.</p>`;
+}
+function showBriefing(){ document.getElementById('briefContent').innerHTML=briefingHTML(); document.getElementById('briefModal').style.display='flex'; }
+function closeBriefing(){ document.getElementById('briefModal').style.display='none'; s.lastBriefing=iso(); save(); askReasons(); }
+function maybeBriefing(){ if(s.lastBriefing!==iso()) showBriefing(); else askReasons(); }
+function missReportHTML(){
+  const cutoff=isoOffset(-60), ms=(s.misses||[]).filter(m=>m.date>=cutoff);
+  if(ms.length<3) return '<p style="color:var(--muted);">Not enough data yet. Every miss and its reason feeds this report. Come back after a few.</p>';
+  const by=(arr,f)=>{ const o={}; arr.forEach(x=>{ const k=f(x); o[k]=(o[k]||0)+1; }); return Object.entries(o).sort((a,b)=>b[1]-a[1]); };
+  const days=by(ms,m=>DOW[m.dow]), quests=by(ms,m=>m.quest).slice(0,3);
+  let html=`<p style="margin-top:0;color:var(--muted);">${ms.length} misses in the last 60 days.</p>`;
+  html+=`<div class="qrow"><label>Worst day of the week</label><span class="xp">${days[0][0]} (${days[0][1]})</span></div>`;
+  quests.forEach(([q,n])=>{ const d=by(ms.filter(m=>m.quest===q),m=>DOW[m.dow])[0]; html+=`<div class="qrow"><label>${esc(q)}: ${n} misses</label><span class="xp">mostly ${d[0]}s (${d[1]} of ${n})</span></div>`; });
+  const words={};
+  ms.filter(m=>m.kind!=='absent' && m.reason && m.reason!=='no reason given').forEach(m=>m.reason.toLowerCase().replace(/[^a-z\s]/g,' ').split(/\s+/).forEach(w=>{ if(w.length>2 && !STOP.has(w)) words[w]=(words[w]||0)+1; }));
+  const top=Object.entries(words).filter(e=>e[1]>=2).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  html+='<div class="sub">What you keep saying</div>';
+  html+= top.length ? top.map(([w,n])=>`<div class="qrow"><label>${esc(w)}</label><span class="xp">${n} times</span></div>`).join('') : '<div class="qrow" style="border:none;color:var(--muted);">No repeating excuse yet.</div>';
+  const absent=ms.filter(m=>m.kind==='absent').length;
+  if(absent) html+=`<div class="qrow"><label>Days you did not even open the app</label><span class="xp">${absent} quest-misses</span></div>`;
+  return html;
+}
+function showMissReport(){ document.getElementById('missContent').innerHTML=missReportHTML(); document.getElementById('missModal').style.display='flex'; }
+
+function render(){
+  document.getElementById('charLevel').textContent = charLevel();
+  let cRank = rankFor(charLevel());
+  const big=document.getElementById('charRankBig'), rc=RANK_COLOR[cRank];
+  big.textContent = cRank.toUpperCase();
+  big.style.color = rc;
+  big.style.textShadow = cRank==='S-Rank' ? 'none' : `0 0 22px ${rc}99, 0 0 50px ${rc}4d`;
+  big.classList.toggle('srank', cRank==='S-Rank');
+  document.getElementById('rankTaunt').textContent = RANK_TAUNTS[cRank];
+  document.getElementById('streak').textContent = s.streak + ' day streak';
+  let daysLeft = dayDiff(TARGET_DATE, iso());
+  const cdEl = document.getElementById('countdown');
+  cdEl.textContent = daysLeft > 0 ? daysLeft + ' days until July 16, 2027' : 'Deadline reached';
+  cdEl.className = daysLeft<=7 ? 'urgent-critical' : daysLeft<=30 ? 'urgent-warn' : '';
+  document.getElementById('dubaiClock').textContent = dubaiClockText();
+
+  document.getElementById('statPanels').innerHTML = STATS.map(st=>{
+    let d=s.stats[st], rk=rankFor(d.level), c=RANK_COLOR[rk];
+    return `<div class="panel stat"><h3><span style="display:flex;align-items:center;gap:7px;">${STAT_ICON[st]}${STAT_LABEL[st]}</span> <span class="badge" style="color:${c};border-color:${c}66;background:${c}14;">${rk}</span></h3>
+      <div class="lvl">Lv. ${d.level}</div>
+      <div class="bar"><i style="width:${Math.min(d.xp,100)}%;background:linear-gradient(90deg,${c}88,${c});box-shadow:0 0 10px ${c}80;"></i></div></div>`;
+  }).join('');
+
+  document.getElementById('dailyList').innerHTML = s.daily.map(q=>{
+    if(q.dismissedToday){
+      return `<div class="qrow done"><input type="checkbox" checked disabled><label>${esc(q.label)} (rest day: ${esc(q.dismissReason||'')})</label><span class="xp">no penalty</span></div>`;
+    }
+    return `<div class="qrow ${q.done?'done':''}">
+      <input type="checkbox" ${q.done?'checked':''} ${(q.id==='deepwork'&&!q.done&&focusMinutes()<FOCUS_GOAL)?'disabled title="Complete focus time first"':''} onchange="toggleDaily('${q.id}')">
+      <label>${esc(q.label)}${q.id==='deepwork'?` (${focusMinutes()}/${FOCUS_GOAL} min)`:''}</label><span class="xp">${STAT_LABEL[q.stat]} +${q.xp}</span>
+      ${!q.done?`<button class="ghost" style="padding:2px 9px;font-size:12px;" onclick="dismissDaily('${q.id}')">Rest day</button>`:''}
+      ${q.custom?`<button class="ghost" style="padding:2px 9px;font-size:12px;" onclick="removeDaily('${q.id}')">&times;</button>`:''}
+    </div>`;
+  }).join('');
+
+  const nextMonday = isoAdd(mondayOf(iso()),7);
+  const weekLeft = dayDiff(nextMonday, iso());
+  document.getElementById('weekLeftLine').textContent = `${weekLeft} day${weekLeft!==1?'s':''} left to finish this week's quests`;
+  document.getElementById('questList').innerHTML = s.quests.length ? s.quests.map(q=>{
+    let target = q.target||1;
+    let isBoss = q.type==='boss' || /^BOSS:/i.test(q.name);
+    let name = q.name.replace(/^BOSS:\s*/i,'');
+    let bossBadge = isBoss ? `<span class="badge" style="color:var(--gold);border-color:var(--gold);margin-right:6px;">BOSS</span>` : '';
+    const resetsIn = weekLeft;
+    const recurBadge = q.recurring ? `<span class="badge" style="margin-left:6px;">weekly</span>` : '';
+    if(target<=1){
+      const done = q.recurring && q.completedCycle;
+      return `<div class="qrow ${isBoss?'boss':''} ${done?'done':''}"><input type="checkbox" ${done?'checked disabled':''} onchange="completeQuest(${q.id})"><label>${bossBadge}${esc(name)}${recurBadge}${done?` (resets in ${resetsIn}d)`:''}</label>${dueChip(q)}<span class="xp">${STAT_LABEL[q.stat]} +${q.xp}</span></div>`;
+    }
+    let prog = q.progress||0;
+    const done2 = q.recurring && q.completedCycle;
+    return `<div class="qrow ${isBoss?'boss':''} ${done2?'done':''}">${done2?'<span style="width:34px;"></span>':`<button class="ghost" style="padding:4px 10px;" onclick="incrementQuest(${q.id})">+1</button>`}<label>${bossBadge}${esc(name)}${recurBadge}${done2?` (resets in ${resetsIn}d)`:''}</label>${dueChip(q)}<span class="xp">${prog}/${target} &middot; ${STAT_LABEL[q.stat]} +${q.xp}</span></div>`;
+  }).join('') : '<div class="qrow" style="color:var(--muted);border:none;">No active quests. Add one below.</div>';
+
+  const td=s.daily.length, tdone=s.daily.filter(d=>d.done||d.dismissedToday).length;
+  document.getElementById('todayFill').style.width = (td?Math.round(tdone/td*100):0)+'%';
+  document.getElementById('todayText').textContent = `${tdone}/${td} daily quests done today`;
+
+  document.getElementById('liftList').innerHTML = (s.lifts&&s.lifts.length) ? s.lifts.map(l=>`
+    <div class="qrow"><button class="ghost" style="padding:4px 10px;" onclick="logLift(${l.id})">Log</button><label>${esc(l.name)}</label><span class="xp">${l.weight} &times; ${l.targetReps} reps</span></div>`).join('') : '<div class="qrow" style="border:none;color:var(--muted);">No lifts tracked yet.</div>';
+
+  document.getElementById('undoBtn').style.opacity = s.undo ? '1' : '.4';
+  document.getElementById('rewardsList').innerHTML = (s.rewards&&s.rewards.length) ? s.rewards.map(r=>`
+    <div class="qrow ${r.claimed?'done':''}">
+      <input type="checkbox" ${r.claimed?'checked':''} onchange="toggleRewardClaimed('${r.id}')">
+      <label>${esc(r.text)}</label>
+    </div>`).join('') : '<div class="qrow" style="border:none;color:var(--muted);">No rewards yet, earn one by completing a quest.</div>';
+
+  document.getElementById('logList').innerHTML = s.log.length ? s.log.map(l=>`
+    <div class="logrow ${l.cls}"><span class="date">${l.date}</span><span>${esc(l.text)}</span></div>`).join('') : '<div class="logrow" style="color:var(--muted);">Nothing logged yet.</div>';
+  renderMetrics();
+  updateFocusUI();
+}
+</script>
+</body>
+</html>
